@@ -214,4 +214,12 @@ That will act as a server listining on PORT.
 
 ### Worth checking:
 
-- https://blog.datasyndrome.com/a-tale-of-two-kafka-clients-c613efab49df - about python-kafka library failing to retrieve all messages.
+- https://blog.datasyndrome.com/a-tale-of-two-kafka-clients-c613efab49df - about python-kafka library failing to retrieve all messages
+
+### Contributing
+
+Review [the contributing guidelines](CONTRIBUTING.md) before you make your awesome contribution
+
+### License
+
+This project is licensed under the terms of the MIT license. See [LICENSE](LICENSE) 
