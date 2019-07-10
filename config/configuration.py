@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 
 # Broker configuration
-mqttBroker = "207.154.232.115"
-mqttPort = 1883
+mqttBroker = "Your Broker IP"
+mqttPort = BrokerPort
 
-mqttUser = "techhub"
-mqttPasswd = "dtbhub2019"
+mqttUser = "Your Broker Username"
+mqttPasswd = "Your Broker Passoword"
 
 # Components configuration
 componentDic = {"imuClass" : "Imu"}
