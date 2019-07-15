@@ -60,7 +60,6 @@ class Imu(Component):
         before trying again
         """
         self.setup()
-        
         self.mqttHandler.publish(
             (self.my_topic+"/pollRate"), self.poll_interval, retain=True)
         while True:
@@ -81,6 +80,7 @@ class Imu(Component):
                     'y': data.get('gyro')[1],
                     'z': data.get('gyro')[2]
                 },
+                # Note: This is a UNIX timestamp in microseconds
                 'timestamp': data.get('timestamp')
             }
         except: 
