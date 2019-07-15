@@ -59,12 +59,13 @@ class Imu(Component):
         before trying again
         """
         self.setup()
+        actual_poll_interv = self.poll_interval*1.0/1000.0
         self.mqttHandler.publish(
-            (self.my_topic+"/pollRate"), self.poll_interval*1.0/1000.0, retain=True)
+            (self.my_topic+"/pollRate"), actual_poll_interv, retain=True)
         while True:
             if self.imu.IMURead():
                 self.handleData()
-                time.sleep(self.poll_interval*1.0/1000.0)
+                time.sleep(actual_poll_interv)
 
     def gen_payload_message(self, data):
         try:
