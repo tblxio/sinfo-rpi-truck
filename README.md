@@ -54,7 +54,7 @@ You should connect:
 ### Setting up MQTT Broker
 
 MQTT is a lightweight, low power, easy to implement publish/subscribe protocol which makes it ideal for the M2M(Machine to Machine) communication performed by IOT devices.
-If you are new to MQTT i recommend reading [this article](https://1sheeld.com/mqtt-protocol/).
+If you are new to MQTT I recommend reading [this article](https://1sheeld.com/mqtt-protocol/).
 #### Step 1: Set up your MQTT Broker
 You can use a free online mqtt broker such as the [Mosquitto Test Broker](https://test.mosquitto.org/), although it is not recommended, since you won't have any control over the broker, and anyone can listen and publish to your topics.
 
