@@ -1,4 +1,4 @@
-# Drive left msg
+# Drive left msg 100% power (angular motor clockwise)
 drive_msgd = {
     "sbrick_id": "88:6B:0F:80:29:D1",  # "string. SBrick ID. <sbrick MAC>",
     "channel": "00",  # " string. hex string. the LEGO power function port you want to drive. <00|01|02|03>",
@@ -6,7 +6,7 @@ drive_msgd = {
     "power": "f6",  # "string. hex string. FF means 100% speed. <00~FF>",
     "exec_time": 15  # "number. seconds. 5566 means forever."
 }
-# Drive right msg
+# Drive right msg 100% power (angular motor anti-clockwise)
 drive_msga = {
     "sbrick_id": "88:6B:0F:80:29:D1",  # "string. SBrick ID. <sbrick MAC>",
     "channel": "00",  # " string. hex string. the LEGO power function port you want to drive. <00|01|02|03>",
@@ -14,7 +14,7 @@ drive_msga = {
     "power": "f6",  # "string. hex string. FF means 100% speed. <00~FF>",
     "exec_time": 15  # "number. seconds. 5566 means forever."
 }
-# Drive foward msg
+# Drive foward msg 100% power (linear motor clockwise)
 drive_msgw = {
     "sbrick_id": "88:6B:0F:80:29:D1",  # "string. SBrick ID. <sbrick MAC>",
     "channel": "02",  # " string. hex string. the LEGO power function port you want to drive. <00|01|02|03>",
@@ -22,7 +22,7 @@ drive_msgw = {
     "power": "f6",  # "string. hex string. FF means 100% speed. <00~FF>",
     "exec_time": 15  # "number. seconds. 5566 means forever."
 }
-# Drive back msg
+# Drive back msg 100% power (linear motor anti-clockwise)
 drive_msgs = {
     "sbrick_id": "88:6B:0F:80:29:D1",  # "string. SBrick ID. <sbrick MAC>",
     "channel": "02",  # " string. hex string. the LEGO power function port you want to drive. <00|01|02|03>",
