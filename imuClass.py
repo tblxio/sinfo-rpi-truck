@@ -43,7 +43,8 @@ class Imu(Component):
         self.imu.setCompassEnable(True)
 
         # Used to set up the polling interval of the sensor
-        self.poll_interval = self.imu.IMUGetPollInterval()
+        # Converted from mS to seconds
+        self.poll_interval = self.imu.IMUGetPollInterval() * 1.0/ 1000.0
         self.my_topic = "truck1/imu"
 
     # Data Handling for this specific device, from collection to publishing to the correct MQTT Topics.
@@ -59,13 +60,13 @@ class Imu(Component):
         before trying again
         """
         self.setup()
-        actual_poll_interv = self.poll_interval*1.0/1000.0
+        
         self.mqttHandler.publish(
-            (self.my_topic+"/pollRate"), actual_poll_interv, retain=True)
+            (self.my_topic+"/pollRate"), self.poll_interval, retain=True)
         while True:
             if self.imu.IMURead():
                 self.handleData()
-                time.sleep(actual_poll_interv)
+                time.sleep(self.poll_interval)
 
     def gen_payload_message(self, data):
         try:
