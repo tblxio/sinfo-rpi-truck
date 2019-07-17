@@ -19,27 +19,19 @@ class TC(Component):
 
     # Setup method for this specific device
     def setup(self):
-        print("Started test")
         # Used to set up the polling interval of the sensor
-        self.poll_interval = 10
-        self.my_topic = "truck1/test"
+        self.poll_interval = 0.12
+        self.my_topic = "truck1/testcomponent"
+        self.name = "testcomponent"
+        print "{} setup finished".format(self.name)
 
     # Data Handling for this specific device, from collection to publishing to the correct MQTT Topics.
-    def handleData(self):
+    def handleData(self,timestamp):
         data = {"accel": (0, 1, 2), "gyro": (0, 1, 2), "timestamp": 123445}
         self.mqttHandler.publish(self.my_topic, json.dumps(
-            self.gen_payload_message(data)))
+            self.gen_payload_message(data,timestamp)), retain=True)
 
-    # Specific run behaviour of this component
-    def run(self):
-        self.setup()
-        self.mqttHandler.publish(
-            (self.my_topic+"/pollRate"), self.poll_interval*1.0/1000.0, retain=True)
-        while True:
-            self.handleData()
-            time.sleep(self.poll_interval*1.0/1000.0)
-
-    def gen_payload_message(self, data):
+    def gen_payload_message(self, data,timestamp):
         try:
             payload = {
                 'accel': {
@@ -52,7 +44,7 @@ class TC(Component):
                     'y': data.get('gyro')[1],
                     'z': data.get('gyro')[2]
                 },
-                'timestamp': data.get('timestamp')
+                'timestamp': timestamp
             }
         except:
             print("Received wrong data structure")

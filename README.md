@@ -1,7 +1,7 @@
 # Introduction
 This repo contains a framework to extract data acquired from sensors connected to a Rpi, using the MQTT protocol, as well as provide an easy way to access those data points using a REST API.
 
-For this example we are using a remote control LEGO Truck (Mercedes-Benz Arocs) in conjuction with a RPI connected to an Innertial Measurement Unit(IMU), a Camera module and a Sonar Sensor Module.
+For this example we are using a remote control LEGO Truck (Mercedes-Benz Arocs) in conjunction with a RPI connected to an Inertial Measurement Unit(IMU), a Camera module and a Sonar Sensor Module.
 
 ![Example Diagram](images/DaimlerTruckCurrent.png)
 
@@ -82,17 +82,27 @@ In this repository you can find the [configuration file](config/configuration.py
 
 
 ---
+
 ### Setting up new components
 
-New components can be easily set up by implementing the [componentClass](componentClass.py) which provides the constructor and the mqttHandler for communication with the broker using the methods provided by the [Paho-MQTT Library](https://pypi.org/project/paho-mqtt/) by the Eclipse foundation.   
+New components can be easily set up by implementing the [componentClass](componentClass.py) which provides the constructor and the mqttHandler for communication with the broker using the methods provided by the [Paho-MQTT Library](https://pypi.org/project/paho-mqtt/) by the Eclipse foundation.
 
-Although only the **run** method is necessary for the main to function, the idea is to use the **setup** method for specific device setup operations, the **dataHandling** method to acquire and publish data from the component, and the **run** method to control the running loop.
+In order for the components to work correctly with the proposed system, you are required to implement the **setup** method and one of the methods described below:
+
+#### Data acquisition components
+
+If your component is supposed to acquire data from a sensor and relay it to the network using MQTT, you should implement the **acquireData** method, which will be called according to the polling rate defined on the component. Furthermore it would be useful to create a structure for the payload by implementing the **gen_payload_message** method.
 
 For an example of this implementation check the [imuClass](imuClass.py)
+
+#### Parallel streaming components
+
+If your component is supposed to run on a parallel loop, such as a camera streaming video over the internet, you should include the necessary code in the **run** method. The [main.py](main.py) will then spawn a new thread to execute your components run code.
 
 ![ComponentsDiagram](images/Components.png)
 
 #### MQTT topics framework
+
 In order to maintain consistency, all new topics should follow the framework:
 ```
 project/component
@@ -113,9 +123,11 @@ Eg. truck1/imu : JSON payload containing the data given by the IMU in truck1.
 }   
 ```
 
+Which is made easier by the fact that the componentClass receives the root topic during initialization and exposes the method **set_topic** to be called during the component setup, in order to set the name and formulate the topic for that component.
+
 #### Adding the components to the system
 
-After the compnent has been set up and tested on its own, you can run it in parallel to the other components by simply altering the **componentDic** on the [configuration](config/configuration.py) file, as so:
+After the component has been set up and tested on its own, you can run it in parallel to the other components by simply altering the **componentDic** on the [configuration](config/configuration.py) file, as so:
 
 ```
 componentDic = {"imuClass" : "Imu", "Name Of The File", "Name Of The Class"}
@@ -124,8 +136,9 @@ And the [main.py](main.py) will import it, create the object and invoke the **ru
 
 **Note:** The effect this has on reading several sensors has yet to be tested, although it shouldn't be a problem due to the quad core nature of the Rpi3B+.
 
+#### The root/components topic:
 
-
+The [componentClass](componentClass.py) provides a method to publish a JSON with information related to the configuration of the component to the topic **root/components**. This method is called after they are setup in the [main.py](main.py), so you can check the information for all the current components running on that system by subscribing to that topic.
 
 ---
 ### Setting up the IMU data streamming
@@ -265,7 +278,7 @@ Other apps are available in `/RTIMULib2/Linux/`. Check out its repo for descript
 
 
 #### Step 4: Streamming the IMU data
-To begin streamming the IMU data to the MQTT broker, run the [imuClass.py](imuClass.py).
+To begin streaming the IMU data to the MQTT broker, run the [imuClass.py](imuClass.py).
 In this case the data will be published to the topic **/truck1/imu** with the following format:
 ```
 {
@@ -348,32 +361,46 @@ get_adc = {
 ---
 
 ### Setting up the Camera
+
 Still not implemented
 
 ---
 
 ### Setting up the Proximity Sensors
+
 Still not implemented
 
 ---
-## Running the program
+
+### Running the program
+
 After all the setting up is done just run [main.py](main.py) like
 ```
 python main.py
 ```
 
 ---
+
+### Worth noting
+
+The sampling rate defined for the components is not precise, there is always an error of around +2% on the actual sampling interval. For example, the system is supposed to read and publish the IMU values every 12ms, but the delta between two timestamps is not 12ms, but something around 12.11ms. Using higher sampling intervals such as 1 second yields similar results of around 1-2% error. This may be an issue related to the way the scheduler of the RPi OS functions.
+
+Another thing worth noting is that it takes roughly 0.04ms to poll data from the IMU.
+
+---
+
 ### Worth checking:
 
 [Setting up a script to run on Rpi Boot](http://pi.bek.no/autostartProgramOnBoot/)
 
 ---
+
 ### Contributing
 
 Review [the contributing guidelines](CONTRIBUTING.md) before you make your awesome contribution
 
-
 ---
+
 ### License
 
-This project is licensed under the terms of the MIT license. See [LICENSE](LICENSE) 
+This project is licensed under the terms of the MIT license. See [LICENSE](LICENSE)]
