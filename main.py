@@ -45,17 +45,17 @@ def get_components():
 # Get the slowest and fastest poll rates in order to define
 # the cycle speed and the maximum number of cycles before resetting
 # the counter
-def get_max_min_poll_rate(my_components):
-    max_rate = -1.0
-    min_rate = 1000.0
+def get_max_min_sampling_interval(my_components):
+    max_interval = -1.0
+    min_interval = 1000.0
     for component in my_components:
-        if my_components[component].pollingRate <= min_rate:
-            min_rate = my_components[component].pollingRate
+        if my_components[component].sampInterval <= min_rate:
+            min_rate = my_components[component].sampInterval
 
-        if my_components[component].pollingRate >= max_rate:
-            max_rate = my_components[component].pollingRate
+        if my_components[component].sampInterval >= max_rate:
+            max_rate = my_components[component].sampInterval
 
-    return max_rate, min_rate
+    return max_interval, min_interval
 
 
 # Update the number of cycles between measurements for
@@ -76,7 +76,7 @@ def main():
     # in between measurements for each component as well as
     # the number of cycles of the slowest component in order
     # to reset the counter
-    max_rate, min_rate = get_max_min_poll_rate(my_components)
+    max_rate, min_rate = get_max_min_sampling_interval(my_components)
     max_loops = math.ceil((max_rate/min_rate))
     update_loop_cycles(my_components, min_rate, time.time()*1000000)
     print "Loop speed: {} || Maximum number of cycles {} ".format(

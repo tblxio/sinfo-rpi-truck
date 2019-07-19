@@ -13,7 +13,7 @@ class Component:
         self.mqttHandler.setup_client()
 
         self.name= "component"
-        self.pollingRate = 1
+        self.sampInterval = 1
         self.loopCycles = 1
         self.loopRate = 1
         self.rootTopic = root
@@ -56,7 +56,7 @@ class Component:
     # the new configuration parameters of the component
     def calculate_loop_cycles(self,loop_rate,timestamp):
         self.loopRate = loop_rate
-        self.loopCycles = int(math.ceil(self.pollingRate / self.loopRate))
+        self.loopCycles = int(math.ceil(self.sampInterval / self.loopRate))
         self.publishConfiguration(int(timestamp))
 
 
@@ -72,7 +72,7 @@ class Component:
        return {
            'name': self.name,
            'topic': self.my_topic,
-           'pollRate': self.pollingRate,
+           'pollRate': self.sampInterval,
            'loopRate': self.loopRate,
            'cycles': self.loopCycles,
            'timestamp': timestamp

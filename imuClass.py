@@ -45,11 +45,11 @@ class Imu(Component):
         # Used to set up the polling interval of the sensor
         # Converted from mS to seconds
         # (400/self.imu.IMUGetPollInterval()) gives the sampling rate in Hz.
-        # We multiply by 1.2 in order to be slower than the sampling rate and
+        # We multiply by 2 in order to be slower than the sampling rate and
         # guarantee a hit everytime we try to read the sensor
         # In this case the sampling rate is 100Hz and we are sampling every 
-        # 1.2/100Hz= 12ms
-        self.pollingRate = 1.0/(400/self.imu.IMUGetPollInterval())*1.2
+        # 2/100Hz= 20ms
+        self.sampInterval = 1.0/(400/self.imu.IMUGetPollInterval())*2
         self.set_topic("imu")
 
         print "{} setup finished".format(self.name)
