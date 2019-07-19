@@ -49,11 +49,11 @@ def get_max_min_sampling_interval(my_components):
     max_interval = -1.0
     min_interval = 1000.0
     for component in my_components:
-        if my_components[component].sampInterval <= min_rate:
-            min_rate = my_components[component].sampInterval
+        if my_components[component].sampInterval <= min_interval:
+            min_interval = my_components[component].sampInterval
 
-        if my_components[component].sampInterval >= max_rate:
-            max_rate = my_components[component].sampInterval
+        if my_components[component].sampInterval >= max_interval:
+            max_interval = my_components[component].sampInterval
 
     return max_interval, min_interval
 
