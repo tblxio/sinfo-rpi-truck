@@ -56,4 +56,4 @@ stop_msg = {
 }
 # Get adc info(must be subscribed to the resp_topic elsewhere)
 get_adc = {'status': 0, 'req_msg': '{"sbrick_id": "88:6B:0F:80:29:D1"}',
-           'resp_topic': 'sbrick/01/rr_resp/get_adc'}
+           'resp_topic': 'truck1/motor'}

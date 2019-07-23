@@ -91,10 +91,11 @@ def main():
 
         for key, component in my_components.iteritems():
             if component.loopCycles <= loopcount:
-                p = threading.Thread(
-                    target=component.handleData, args=(timestamp,))
-                p.daemon = True
-                p.start()
+                component.handleData(timestamp)
+                # p = threading.Thread(
+                #     target=component.handleData, args=(timestamp,))
+                # p.daemon = True
+                # p.start()
 
         loopcount += 1
         end = time.time()
