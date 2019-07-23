@@ -82,7 +82,7 @@ def main():
     print "Loop speed: {} || Maximum number of cycles {} ".format(
         min_rate, max_loops)
 
-    loopcount = 0
+    loopcount = 1
     # Get timestamp, call handle data for each component
     # sleep the rate - time_spent_on_loop
     while True:
@@ -104,7 +104,7 @@ def main():
         if (end-begin) < min_rate:
             time.sleep(min_rate-(end-begin))
         if loopcount > max_loops:
-            loopcount = 0
+            loopcount = 1
 
     sys.exit(0)
 
