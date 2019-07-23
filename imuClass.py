@@ -24,7 +24,8 @@ class Imu(Component):
         SETTINGS_FILE = "RTIMULib"
         self.s = RTIMU.Settings(SETTINGS_FILE)
         self.imu = RTIMU.RTIMU(self.s)
-
+        self.counter =0
+        self.timer = time.time()
         print("IMU Name: " + self.imu.IMUName())
 
         t_shutdown = 0
@@ -60,6 +61,11 @@ class Imu(Component):
         if self.imu.IMURead():
             data = self.imu.getIMUData()
             self.mqttHandler.publish(self.my_topic, json.dumps(self.gen_payload_message(data,timestamp)),retain=True)
+            self.counter+=1
+            self.timer = time.time() - self.timer
+            print "{} : time elapsed {}".format(self.counter,self.timer)
+        else:
+            print "ops"
 
     # Generates the payload specific to the IMU
     def gen_payload_message(self, data,timestamp):
