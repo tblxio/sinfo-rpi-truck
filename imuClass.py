@@ -50,7 +50,7 @@ class Imu(Component):
         # guarantee a hit everytime we try to read the sensor
         # In this case the sampling rate is 100Hz and we are sampling every 
         # 2/100Hz= 20ms
-        self.sampInterval = 1.0/(400/self.imu.IMUGetPollInterval())*2
+        self.sampInterval = 1.0/(400/self.imu.IMUGetPollInterval())*2*5
         self.set_topic("imu")
 
         print "{} setup finished".format(self.name)
@@ -62,8 +62,9 @@ class Imu(Component):
             data = self.imu.getIMUData()
             self.mqttHandler.publish(self.my_topic, json.dumps(self.gen_payload_message(data,timestamp)),retain=True)
             self.counter+=1
-            self.timer = time.time() - self.timer
-            print "{} : time elapsed {}".format(self.counter,self.timer)
+            elapsed = time.time() - self.timer
+            self.timer = time.time()
+            print "{} : time elapsed {}".format(self.counter,elapsed)
         else:
             print "ops"
 
