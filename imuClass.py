@@ -68,7 +68,7 @@ class Imu(Component):
             self.counter+=1
             elapsed = time.time() - self.timer
             self.timer = time.time()
-            print "{} : time elapsed {}".format(self.counter,elapsed)
+            print "{} : code {} time elapsed {}".format(self.counter,ret,elapsed)
         else:
             print "ops"
             self.counter =0
