@@ -60,7 +60,10 @@ class Imu(Component):
     def handleData(self, timestamp):
         if self.imu.IMURead():
             data = self.imu.getIMUData()
-            self.mqttHandler.publish(self.my_topic, json.dumps(self.gen_payload_message(data,timestamp)),retain=True)
+            if((self.mqttHandler.publish(self.my_topic, json.dumps(self.gen_payload_message(data,timestamp)),retain=True)) !=0):
+                print "error sending"
+                self.counter=0
+
             self.counter+=1
             elapsed = time.time() - self.timer
             self.timer = time.time()
