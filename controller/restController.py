@@ -1,12 +1,14 @@
 import Tkinter as tk
 import sys
 import requests
+import time
+from decimal import * 
 
-URL = "http://127.0.0.1:8080/drive"
-
+URL = "http://127.0.0.1:8080/motor/drive"
+getcontext().prec = 2
 def generate_params(direction,power):
     return{
-        'direction':direction,
+        'motion':direction,
         'power': power
     }
     
@@ -17,25 +19,25 @@ def key_input(event):
     print("Press w,s,a,d to drive, b to break and q to quit")
 
     if stri == 'd':
-        print("Drive right")
-        requests.get(url=URL,params= generate_params("right",255))
+        print("[{}] Drive right ").format(Decimal(time.time()*1000))
+        requests.get(url=URL,params= generate_params("angular",255))
     elif stri == 'b':
-        requests.get(url=URL,params= generate_params("right",0))
-        requests.get(url=URL,params= generate_params("back",0))
-        print("Stop")
+        requests.get(url=URL,params= generate_params("angular",0))
+        requests.get(url=URL,params= generate_params("linear",0))
+        print("[{}] Stop ").format(Decimal(time.time()*1000))
     elif stri == 'a':
-        requests.get(url=URL,params= generate_params("left",255))
-        print("Drive left")
+        requests.get(url=URL,params= generate_params("angular",-125))
+        print("[{}] Drive left ").format(Decimal(time.time()*1000))
     elif stri == 'w':
-        requests.get(url=URL,params= generate_params("forward",255))
-        print("Drive forward")
+        requests.get(url=URL,params= generate_params("linear",255))
+        print("[{}] Drive forward ").format(Decimal(time.time()*1000))
     elif stri == 's':
-        requests.get(url=URL,params= generate_params("back",255))
-        print("Drive back")
+        requests.get(url=URL,params= generate_params("linear",-255))
+        print("[{}] Drive back ").format(Decimal(time.time()*1000))
     elif stri == 'q':
-        requests.get(url=URL,params= generate_params("right",0))
-        requests.get(url=URL,params= generate_params("back",0))
-        print("Stop and quit")
+        requests.get(url=URL,params= generate_params("angular",0))
+        requests.get(url=URL,params= generate_params("linear",0))
+        print("[{}] Quit ").format(Decimal(time.time()*1000))
         sys.exit()
     elif stri == 'p':
         pass

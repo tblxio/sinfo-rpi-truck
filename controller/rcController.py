@@ -41,6 +41,9 @@ def key_input(event):
         sys.exit()
     elif stri == 'p':
         my_client.publish(adc_topic, json.dumps(messages.get_adc, sort_keys=True))
+    elif stri == 'o':
+        my_client.publish(stop_topic, json.dumps(messages.stop_msg, sort_keys=True))
+        print("Stop angular")
 
 
 # Simple Tkinter program to monitor key presses and act on them
