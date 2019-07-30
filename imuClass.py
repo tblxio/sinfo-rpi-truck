@@ -67,7 +67,7 @@ class Imu(Component):
             print "{} : time elapsed {}".format(self.counter,elapsed)
         else:
             print "ops"
-            counter =0
+            self.counter =0
 
     # Generates the payload specific to the IMU
     def gen_payload_message(self, data,timestamp):
