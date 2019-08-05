@@ -64,7 +64,7 @@ class Component:
     # root/component/config topic
     def publishConfiguration(self,timestamp):
         self.mqttHandler.publish(self.config_topic, json.dumps(
-            self.gen_curr_configuration_message(timestamp)))
+            self.gen_curr_configuration_message(timestamp)), retain=True)
     
 
     # Generate current configuration message
