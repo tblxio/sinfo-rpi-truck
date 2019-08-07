@@ -52,7 +52,7 @@ class Imu(Component):
         # 2/100Hz= 20ms
         self.sampInterval = 1.0/(400/self.imu.IMUGetPollInterval())*2*5
         self.set_topic("imu")
-
+        self.name = "imu"
         print "{} setup finished".format(self.name)
 
     # Data Handling for this specific device, from collection to 
