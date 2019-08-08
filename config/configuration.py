@@ -4,7 +4,7 @@
 rootTopic = "truck1"
 
 # Broker configuration
-mqttBroker = "192.168.1.126"
+mqttBroker = " "
 mqttPort = "1883"
 
 mqttUser = " "
