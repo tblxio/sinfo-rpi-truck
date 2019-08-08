@@ -81,4 +81,5 @@ class Component:
     # Set component topic
     def set_topic(self,component_name):
         self.name=component_name
+        self.config_topic = self.rootTopic + "/components/" + self.name
         self.my_topic = self.rootTopic + "/" + self.name
