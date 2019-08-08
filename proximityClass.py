@@ -16,7 +16,7 @@ class ProximitySensor(Component):
 
     # Setup method for this specific device
     def setup(self):
-        self.sampInterval = 0.5
+        self.sampInterval = 0.3
         self.set_topic("proximity")
 
         # Setup the GPIO pins

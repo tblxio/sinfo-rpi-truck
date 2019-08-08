@@ -11,4 +11,4 @@ mqttUser = "techhub"
 mqttPasswd = "dtbhub2019"
 
 # Components configuration
-componentDic = {"imuClass" : "Imu"}
+componentDic = {"imuClass" : "Imu", "proximityClass":"ProximitySensor", "motorClass": "Motor" }
