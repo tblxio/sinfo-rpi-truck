@@ -1,5 +1,7 @@
 import unittest
 import time
+import sys
+sys.path.append('..')
 import proximityClass
 from proximityClass import ProximitySensor
 
@@ -16,7 +18,7 @@ class TestGpio(unittest.TestCase):
         """
         for i in range(4):
             print self.proximity.measureDistance()
-            time.sleep(2)
+            time.sleep(0.2)
         self.assertGreater(self.proximity.measureDistance(),0)
 
     def testMqttPublish(self):
