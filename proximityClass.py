@@ -73,7 +73,7 @@ class ProximitySensor(Component):
         del self.filtered_distance[0]
         self.filtered_distance.append(distance)
         # Round to 2 decimal points
-        return round(filtered_distance/10, 2)
+        return round(sum(self.filtered_distance)/10, 2)
     
 
 
