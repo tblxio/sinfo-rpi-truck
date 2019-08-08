@@ -23,9 +23,9 @@ class ProximitySensor(Component):
         self.TRIG = 23
         self.ECHO = 24
         GPIO.setmode(GPIO.BCM)
-        GPIO.setup(TRIG,GPIO.OUT)
-        GPIO.setup(ECHO,GPIO.IN)
-        GPIO.output(TRIG, False)
+        GPIO.setup(self.TRIG,GPIO.OUT)
+        GPIO.setup(self.ECHO,GPIO.IN)
+        GPIO.output(self.TRIG, False)
         time.sleep(1)
         print "{} setup finished".format(self.name)
 
