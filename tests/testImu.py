@@ -1,7 +1,5 @@
 import unittest
 import time
-import sys
-sys.path.append('..')
 from imuClass import Imu
 
 
