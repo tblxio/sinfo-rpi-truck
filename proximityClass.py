@@ -16,7 +16,7 @@ class ProximitySensor(Component):
 
     # Setup method for this specific device
     def setup(self):
-        self.sampInterval = 0.7
+        self.sampInterval = 0.3
         self.set_topic("proximity")
 
         # Setup the GPIO pins
@@ -49,24 +49,30 @@ class ProximitySensor(Component):
         GPIO.output(self.TRIG, False)
         pulse_start=0
         pulse_end=0
+        filtered_distance =0
         # Wait for Sonar Response
         begin = time.time()
-        while GPIO.input(self.ECHO)==0:
-            pulse_start = time.time()
-            if (pulse_start - begin) > 0.05:
-                begin = 1
-                break
-        if begin ==1:
-            return -1
-        while GPIO.input(self.ECHO)==1:
-            pulse_end = time.time()      
-        # Get the duration of the pulsem which indicates the time
-        # it took for the sound wave to come back
-        pulse_duration = pulse_end - pulse_start
-        # Calculate the distance in cm based on the speed of sound/2
-        distance = pulse_duration * 17150.0
+        for i in range(10):
+            while GPIO.input(self.ECHO)==0:
+                pulse_start = time.time()
+                if (pulse_start - begin) > 0.05:
+                    begin = 1
+                    break
+            if begin ==1:
+                begin =time.time()
+                
+            else:
+                while GPIO.input(self.ECHO)==1:
+                    pulse_end = time.time()      
+
+                # Get the duration of the pulsem which indicates the time
+                # it took for the sound wave to come back
+                pulse_duration = pulse_end - pulse_start
+                # Calculate the distance in cm based on the speed of sound/2
+                filtered_distance = filtered_distance +(pulse_duration * 17150.0)
+
         # Round to 2 decimal points
-        return round(distance, 2)
+        return round(filtered_distance/10, 2)
     
 
 
