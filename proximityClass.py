@@ -32,7 +32,7 @@ class ProximitySensor(Component):
     # Data Handling for this specific device, from collection to publishing to the correct MQTT Topics.
     def handleData(self,timestamp):
         self.mqttHandler.publish(self.my_topic, json.dumps(
-            self.gen_request_message(timestamp)), retain=True)
+            self.gen_payload_message(timestamp)), retain=True)
 
      # Generates the payload specific to the IMU
     def gen_payload_message(self, distance,timestamp):
