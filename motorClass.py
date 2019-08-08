@@ -19,7 +19,7 @@ class Motor(Component):
 
     # Setup method for this specific device
     def setup(self):
-        self.sampInterval = 10
+        self.sampInterval = 10.0
         self.requestTopic = "sbrick/01/rr/get_adc"
         self.set_topic("motor")
         print "{} setup finished".format(self.name)
