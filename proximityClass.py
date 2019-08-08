@@ -3,7 +3,9 @@ import os
 import sys
 import getopt
 import json
+from componentClass import Component
 import time
+import os.path
 
 class ProximitySensor(Component):
     """
