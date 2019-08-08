@@ -28,6 +28,7 @@ class ProximitySensor(Component):
         GPIO.output(self.TRIG, False)
         GPIO.setwarnings(False)
         time.sleep(1)
+        self.filtered_distance = [0]*10
         print "{} setup finished".format(self.name)
 
     # Data Handling for this specific device, from collection to publishing to the correct MQTT Topics.
@@ -49,28 +50,28 @@ class ProximitySensor(Component):
         GPIO.output(self.TRIG, False)
         pulse_start=0
         pulse_end=0
-        filtered_distance =0
+
         # Wait for Sonar Response
         begin = time.time()
-        for i in range(10):
-            while GPIO.input(self.ECHO)==0:
-                pulse_start = time.time()
-                if (pulse_start - begin) > 0.05:
-                    begin = 1
-                    break
-            if begin ==1:
-                begin =time.time()
-                
-            else:
-                while GPIO.input(self.ECHO)==1:
-                    pulse_end = time.time()      
+        while GPIO.input(self.ECHO)==0:
+            pulse_start = time.time()
+            if (pulse_start - begin) > 0.01:
+                begin = 1
+                break
+        if begin ==1:
+            begin =time.time()
 
-                # Get the duration of the pulsem which indicates the time
-                # it took for the sound wave to come back
-                pulse_duration = pulse_end - pulse_start
-                # Calculate the distance in cm based on the speed of sound/2
-                filtered_distance = filtered_distance +(pulse_duration * 17150.0)
+        else:
+            while GPIO.input(self.ECHO)==1:
+                pulse_end = time.time()      
 
+        # Get the duration of the pulsem which indicates the time
+        # it took for the sound wave to come back
+        pulse_duration = pulse_end - pulse_start
+        distance = pulse_duration * 17150.0
+        # Calculate the distance in cm based on the speed of sound/2
+        del filtered_distance[0]
+        filtered_distance.append(distance)
         # Round to 2 decimal points
         return round(filtered_distance/10, 2)
     
