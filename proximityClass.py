@@ -59,7 +59,7 @@ class ProximitySensor(Component):
                 begin = 1
                 break
         if begin ==1:
-            return -1
+            return self.filtered_distance
 
         else:
             while GPIO.input(self.ECHO)==1:
