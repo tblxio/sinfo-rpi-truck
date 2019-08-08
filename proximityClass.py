@@ -16,7 +16,7 @@ class ProximitySensor(Component):
 
     # Setup method for this specific device
     def setup(self):
-        self.sampInterval = 0.5
+        self.sampInterval = 0.7
         self.set_topic("proximity")
 
         # Setup the GPIO pins
@@ -47,7 +47,8 @@ class ProximitySensor(Component):
         GPIO.output(self.TRIG, True)
         time.sleep(0.00001)
         GPIO.output(self.TRIG, False)
-
+        pulse_start=0
+        pulse_end=0
         # Wait for Sonar Response
         begin = time.time()
         while GPIO.input(self.ECHO)==0:
