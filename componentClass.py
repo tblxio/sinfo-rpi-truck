@@ -17,7 +17,7 @@ class Component:
         self.loopCycles = 1
         self.loopRate = 1
         self.rootTopic = root
-        self.config_topic = self.rootTopic + "/components"
+        self.config_topic = self.rootTopic + "/components/" + self.name
         self.my_topic = self.rootTopic + "/" + self.name
 
         
