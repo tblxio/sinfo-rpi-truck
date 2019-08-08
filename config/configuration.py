@@ -4,11 +4,11 @@
 rootTopic = "truck1"
 
 # Broker configuration
-mqttBroker = "Your Broker IP"
-mqttPort = "BrokerPort"
+mqttBroker = "40.74.15.98"
+mqttPort = "1883"
 
-mqttUser = "Your Broker Username"
-mqttPasswd = "Your Broker Passoword"
+mqttUser = "techhub"
+mqttPasswd = "dtbhub2019"
 
 # Components configuration
 componentDic = {"imuClass" : "Imu"}
