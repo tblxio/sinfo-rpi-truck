@@ -48,9 +48,9 @@ class ProximitySensor(Component):
         GPIO.output(self.TRIG, False)
 
         # Wait for Sonar Response
-        while GPIO.input(ECHO)==0:
+        while GPIO.input(self.ECHO)==0:
             pulse_start = time.time()
-        while GPIO.input(ECHO)==1:
+        while GPIO.input(self.ECHO)==1:
             pulse_end = time.time()      
         # Get the duration of the pulsem which indicates the time
         # it took for the sound wave to come back
