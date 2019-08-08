@@ -3,6 +3,7 @@ import Tkinter as tk
 import sys
 import json
 sys.path.append('..')
+import mqttClient
 from mqttClient import MqttClient
 
 # Connect to the client and subscribe to the necessary topics
