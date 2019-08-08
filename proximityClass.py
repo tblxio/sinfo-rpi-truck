@@ -69,6 +69,8 @@ class ProximitySensor(Component):
         # it took for the sound wave to come back
         pulse_duration = pulse_end - pulse_start
         distance = pulse_duration * 17150.0
+        if distance < 4:
+            distance =4
         # Calculate the distance in cm based on the speed of sound/2
         del self.filtered_distance[0]
         self.filtered_distance.append(distance)
