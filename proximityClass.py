@@ -1,4 +1,8 @@
 import RPi.GPIO as GPIO
+import os
+import sys
+import getopt
+import json
 import time
 
 class ProximitySensor(Component):
