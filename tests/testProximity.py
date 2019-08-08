@@ -1,5 +1,6 @@
 import unittest
 import time
+import sys
 sys.path.append('..')
 from proximity import ProximitySensor
 
