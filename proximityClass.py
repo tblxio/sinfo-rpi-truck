@@ -70,8 +70,8 @@ class ProximitySensor(Component):
         pulse_duration = pulse_end - pulse_start
         distance = pulse_duration * 17150.0
         # Calculate the distance in cm based on the speed of sound/2
-        del filtered_distance[0]
-        filtered_distance.append(distance)
+        del self.filtered_distance[0]
+        self.filtered_distance.append(distance)
         # Round to 2 decimal points
         return round(filtered_distance/10, 2)
     
