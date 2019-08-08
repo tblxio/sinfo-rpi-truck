@@ -59,7 +59,7 @@ class ProximitySensor(Component):
                 begin = 1
                 break
         if begin ==1:
-            begin =time.time()
+            return -1
 
         else:
             while GPIO.input(self.ECHO)==1:
