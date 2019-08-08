@@ -54,7 +54,7 @@ class ProximitySensor(Component):
         # it took for the sound wave to come back
         pulse_duration = pulse_end - pulse_start
         # Calculate the distance in cm based on the speed of sound/2
-        distance = pulse_duration x 17150
+        distance = pulse_duration * 17150.0
         # Round to 2 decimal points
         return round(distance, 2)
     
