@@ -16,14 +16,14 @@ class Camera(Component):
 
     def run(self):
         self.mqttHandler.publish(self.my_topic, json.dumps(
-            self.gen_payload_message(time.time())), retain=True)
+            self.gen_payload_message(round(time.time()*1000))), retain=True)
         time.sleep(3)
         call(["sudo", "-u",  "pi",  "python3", self.path ])
 
     def gen_payload_message(self,timestamp):
         return {
                 'stream_ip': self.get_ip_address(),
-                'stream_port': 8000,
+                'stream_port': "8000",
                 'timestamp': timestamp
             }
 
