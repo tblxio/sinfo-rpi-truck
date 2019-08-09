@@ -1,5 +1,5 @@
 from componentClass import Component
-import subprocess
+from subprocess import call
 import socket
 import time
 import json
@@ -14,8 +14,7 @@ class Camera(Component):
     def run(self):
         self.mqttHandler.publish(self.my_topic, json.dumps(
             self.gen_payload_message(time.time())), retain=True)
-        cmd =["python3", "config/cameraRunner.py" ]
-        subprocess.Popen(cmd)
+        call(["python3", "config/cameraRunner.py" ])
 
     def gen_payload_message(self,timestamp):
         return {
