@@ -1,4 +1,4 @@
-from config.configuration import componentDic, rootTopic
+sudofrom config.configuration import componentDic, rootTopic
 from componentClass import Component
 import multiprocessing as mp
 import threading

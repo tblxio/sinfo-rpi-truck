@@ -14,7 +14,8 @@ class Camera(Component):
     def run(self):
         self.mqttHandler.publish(self.my_topic, json.dumps(
             self.gen_payload_message(time.time())), retain=True)
-        call(["python3", "config/cameraRunner.py" ])
+        time.sleep(3)
+        call(["sudo -u pi python3", "config/cameraRunner.py" ])
 
     def gen_payload_message(self,timestamp):
         return {
