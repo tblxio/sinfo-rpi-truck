@@ -90,7 +90,7 @@ def main():
         timestamp = int(begin*1000000)  # microseconds
 
         for key, component in my_components.iteritems():
-            if component.loopCycles >= loopcount:
+            if loopcount%component.loopCycles==0:
                 #component.handleData(timestamp)
                 p = threading.Thread(
                     target=component.handleData, args=(timestamp,))
