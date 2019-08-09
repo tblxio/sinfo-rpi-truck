@@ -28,7 +28,7 @@ class ProximitySensor(Component):
         GPIO.output(self.TRIG, False)
         GPIO.setwarnings(False)
         time.sleep(1)
-        self.filtered_distance = [0]*10
+        self.filtered_distance = [0.0]*10
         print "{} setup finished".format(self.name)
 
     # Data Handling for this specific device, from collection to publishing to the correct MQTT Topics.
@@ -59,7 +59,7 @@ class ProximitySensor(Component):
                 begin = 1
                 break
         if begin ==1:
-            return sum(self.filtered_distance)
+            return round((sum(self.filtered_distance)/10), 2)
 
         else:
             while GPIO.input(self.ECHO)==1:
