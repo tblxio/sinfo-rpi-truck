@@ -3,19 +3,22 @@ from subprocess import call
 import socket
 import time
 import json
+import os
 
 class Camera(Component):
 
     def setup(self):
-        self.sampInterval = 100
+        self.sampInterval = 100.0
         self.set_topic("camera")
+        self.path = os.path.dirname(os.path.abspath(__file__)) + "/config/cameraRunner.py"
+        print self.path
         print "{} setup finished".format(self.name)
 
     def run(self):
         self.mqttHandler.publish(self.my_topic, json.dumps(
             self.gen_payload_message(time.time())), retain=True)
         time.sleep(3)
-        call(["sudo -u pi python3", "config/cameraRunner.py" ])
+        call(["sudo", "-u",  "pi",  "python3", self.path ])
 
     def gen_payload_message(self,timestamp):
         return {
