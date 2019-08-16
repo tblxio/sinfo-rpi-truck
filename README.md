@@ -10,8 +10,10 @@ For this example we are using a remote control LEGO Truck (Mercedes-Benz Arocs) 
 ## Required hardware
 
 - MPU-9250 (IMU);
-- Camera Module;
-- Sonar Module;
+- PiCam V2 Camera Module;
+- HC-SR05 Sonar Module;
+- 1kOhm resistor
+- 2kOhm resistor
 - Micro SD card + Adaptor to connect to your laptop;
 - Raspberry Pi 3 Model B+ (RPi) + Charger;
 - Keyboard + mouse + screen;
@@ -42,12 +44,15 @@ The sensor will have the GND, VCC, SDA and SCL pins connected to the RPi. Here y
 
 You should connect:
 
-| Raspberry Pi (RPi) | Sensor MPU-9250 |
-| ------ | ------ |
-| 3.3 VDC Power - 1 | VCC |
-| GPIO 8 SDA1 (I2C) - 3 | SDA |
-| GPIO 9 SCL1 (I2C) - 5 | SCL |
-| Ground - 9 | GND |
+| Raspberry Pi (RPi) | Sensor MPU-9250 | Sensor HC-SR05
+| ------ | ------ | ------ |
+| 3.3 VDC Power - 1 | VCC | ---- |
+| 5 VDC Power - 2 | ---- | VCC |
+| GPIO 2 SDA1 (I2C) - 3 | SDA | ----|
+| GPIO 3 SCL1 (I2C) - 5 | SCL | ----|
+| GPIO 17 - 11 | ---- | TRIG | 
+| GPIO 27 - 11 | ---- | ECHO Voltage Divider - [Check this](#setting-up-the-proximity-sensors) | 
+| Ground - 9 | GND | GND |
 
 ---
 
@@ -362,17 +367,35 @@ get_adc = {
 
 ### Setting up the Camera
 
-Still not implemented
+#### Step 1:
+
+With the RPi turned off, connect the camera.
+
+#### Step 2:
+Go to the terminal and type
+
+        sudo raspi-config
+
+#### Step 3:
+
+Go to Interfacing-Options -> Camera -> Enable and reboot
+
+#### Step 4:
+Test the camera with 
+
+        raspistill -v -o test.jpg
 
 ---
 
 ### Setting up the Proximity Sensors
 
-Still not implemented
+Follow [this](https://thepihut.com/blogs/raspberry-pi-tutorials/hc-sr04-ultrasonic-range-sensor-on-the-raspberry-pi) guide on the PiHut in order to mount the Proximity Sensor
+
+##### Note: Instead of using the GPIO 23 for the TRIG and 24 for the ECHO, use the ports 17 for the TRIG and 27 for the ECHO.
 
 ---
 
-### Running the program
+## Running the program
 
 After all the setting up is done just run [main.py](main.py) like
 ```
@@ -386,6 +409,8 @@ python main.py
 The sampling rate defined for the components is not precise, there is always an error of around +2% on the actual sampling interval. For example, the system is supposed to read and publish the IMU values every 12ms, but the delta between two timestamps is not 12ms, but something around 12.11ms. Using higher sampling intervals such as 1 second yields similar results of around 1-2% error. This may be an issue related to the way the scheduler of the RPi OS functions.
 
 Another thing worth noting is that it takes roughly 0.04ms to poll data from the IMU.
+
+The code for the proximity sensors returns a moving average of the last 10 measurements in order to filter noise, since it is sampling at a high rate and small sample the reaction to change of the sensor is not very much affected, while the measurement results were shown to improve a lot.
 
 ---
 
