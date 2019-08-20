@@ -4,7 +4,7 @@ import requests
 import time
 from decimal import * 
 
-URL = "http://127.0.0.1:8080/motor/drive"
+URL = "http://127.0.0.1:8080/motors/drive"
 getcontext().prec = 2
 def generate_params(direction,power):
     return{
