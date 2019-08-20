@@ -406,11 +406,13 @@ python main.py
 
 ### Worth noting
 
-The sampling rate defined for the components is not precise, there is always an error of around +2% on the actual sampling interval. For example, the system is supposed to read and publish the IMU values every 12ms, but the delta between two timestamps is not 12ms, but something around 12.11ms. Using higher sampling intervals such as 1 second yields similar results of around 1-2% error. This may be an issue related to the way the scheduler of the RPi OS functions.
+- The sampling rate defined for the components is not precise, there is always an error of around +2% on the actual sampling interval. For example, the system is supposed to read and publish the IMU values every 12ms, but the delta between two timestamps is not 12ms, but something around 12.11ms. Using higher sampling intervals such as 1 second yields similar results of around 1-2% error. This may be an issue related to the way the scheduler of the RPi OS functions.
 
-Another thing worth noting is that it takes roughly 0.04ms to poll data from the IMU.
+- It takes roughly 0.04ms to send the request and receive a response from the from the IMU.
 
-The code for the proximity sensors returns a moving average of the last 10 measurements in order to filter noise, since it is sampling at a high rate and small sample the reaction to change of the sensor is not very much affected, while the measurement results were shown to improve a lot.
+- The code for the proximity sensors returns a moving average of the last 10 measurements in order to filter noise, since it is sampling at a high rate and small sample the reaction to change of the sensor is not very much affected, while the measurement results were shown to improve a lot.
+
+- The servo motor in our unit is not working properly when tuning in one of the directions, I've applied a software "fix" on the API that sends the drive commands, but it is not perfect, the solution is to replace the servo motor or follow this [post to fix it](https://www.eurobricks.com/forum/index.php?/forums/topic/103511-broken-technic-servomotor-88004/&do=findComment&comment=2749690).
 
 ---
 
