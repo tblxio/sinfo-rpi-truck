@@ -8,7 +8,7 @@ class TestCamera(unittest2.TestCase):
 
     def setUp(self):
         self.camera = Camera("test")
-        self.camera.setup()
+        self.camera.setup(100)
 
     def testCameraInfoRequest(self):
         """

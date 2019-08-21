@@ -6,7 +6,7 @@ class TestMotor(unittest2.TestCase):
 
     def setUp(self):
         self.motor = Motor("test")
-        self.motor.setup()
+        self.motor.setup(10.0)
 
 
 if __name__ == '__main__':

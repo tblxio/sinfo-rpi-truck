@@ -7,7 +7,7 @@ class TestGpio(unittest2.TestCase):
 
     def setUp(self):
         self.proximity = ProximitySensor("test")
-        self.proximity.setup()
+        self.proximity.setup(0.4)
 
     def testMeasurementExists(self):
         """

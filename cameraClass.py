@@ -8,8 +8,8 @@ import os
 
 class Camera(Component):
 
-    def setup(self):
-        self.sampInterval = 100.0
+    def setup(self,samplingInterval):
+        self.sampInterval = samplingInterval
         self.set_topic("camera")
         self.path = os.path.dirname(
             os.path.abspath(__file__)) + "/config/cameraRunner.py"

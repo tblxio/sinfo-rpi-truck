@@ -143,10 +143,12 @@ Which is made easier by the fact that the componentClass receives the root topic
 
 #### Adding the components to the system
 
-After the component has been set up and tested on its own, you can run it in parallel to the other components by simply altering the **componentDic** on the [configuration](config/configuration.py) file, as so:
+After the component has been set up and tested on its own, you can run it in parallel to the other components by simply altering the **componentDic** and adding its sampling rate in seconds on the [configuration](config/configuration.py) file, as so:
 
 ```python
 componentDic = {"imuClass" : "Imu", "Name Of The File", "Name Of The Class"}
+componentsSamplingIntevalInSeconds = {"imuClass": 0.1, "motorClass": 10.0}
+
 ```
 
 And the [main.py](main.py) will import it, create the object and invoke the **run** method of all the components in parallel

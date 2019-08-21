@@ -16,3 +16,9 @@ componentDic = {
     "proximityClass": "ProximitySensor",
     "motorClass": "Motor",
     "cameraClass": "Camera"}
+
+componentsSamplingIntevalInSeconds = {
+    "imuClass": 0.1,
+    "proximityClass": 0.4,
+    "motorClass": 10.0,
+    "cameraClass": 100.0}

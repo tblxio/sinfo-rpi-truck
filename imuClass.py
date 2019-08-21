@@ -14,7 +14,7 @@ class Imu(Component):
     """
 
     # Setup method for this specific device
-    def setup(self):
+    def setup(self,samplingInterval):
         # This is mostly the legacy code used in the SINFO Workshop
         # Load configuration file: sensor settings + calibration
         SETTINGS_FILE = "RTIMULib"
@@ -46,7 +46,7 @@ class Imu(Component):
         # guarantee a hit everytime we try to read the sensor
         # In this case the sampling rate is 100Hz and we are sampling every
         # 2/100Hz= 20ms
-        self.sampInterval = 1.0 / (400 / self.imu.IMUGetPollInterval()) * 2 * 5
+        self.sampInterval = samplingInterval
         self.set_topic("imu")
         print "{} setup finished".format(self.name)
 

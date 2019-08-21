@@ -7,7 +7,7 @@ class TestImu(unittest2.TestCase):
 
     def setUp(self):
         self.imu = Imu("test")
-        self.imu.setup()
+        self.imu.setup(0.1)
 
     def testImuGetData(self):
         """

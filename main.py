@@ -1,4 +1,4 @@
-from config.configuration import componentDic, rootTopic
+from config.configuration import componentDic, rootTopic,componentsSamplingIntevalInSeconds 
 from componentClass import Component
 import threading
 import signal
@@ -26,7 +26,7 @@ def get_components():
         # Ignores objects which are not Components
         if isinstance(aux_component, Component):
             my_components[key] = aux_component
-            my_components[key].setup()
+            my_components[key].setup(componentsSamplingIntevalInSeconds.get(key))
 
             # The use of threads here is mainly in the case of components that
             # should run in a parallel loop, such as the camera, and they can
