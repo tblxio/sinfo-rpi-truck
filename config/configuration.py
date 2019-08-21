@@ -11,4 +11,8 @@ mqttUser = " "
 mqttPasswd = " "
 
 # Components configuration
-componentDic = {"imuClass" : "Imu", "proximityClass":"ProximitySensor", "motorClass": "Motor", "cameraClass": "Camera" }
+componentDic = {
+    "imuClass": "Imu",
+    "proximityClass": "ProximitySensor",
+    "motorClass": "Motor",
+    "cameraClass": "Camera"}

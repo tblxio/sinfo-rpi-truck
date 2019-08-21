@@ -1,13 +1,5 @@
 from componentClass import Component
-import time
-import os.path
-import operator
-import RTIMU
-import os
-import sys
-import getopt
 import json
-sys.path.append('.')
 
 
 class Motor(Component):
@@ -24,12 +16,12 @@ class Motor(Component):
         self.set_topic("motor")
         print "{} setup finished".format(self.name)
 
-    # Data Handling for this specific device, from collection to publishing to the correct MQTT Topics.
-    def handleData(self,timestamp):
+    # Data Handling for this specific device, from collection to publishing to
+    # the correct MQTT Topics.
+    def handleData(self, timestamp):
         self.mqttHandler.publish(self.requestTopic, json.dumps(
             self.gen_request_message(timestamp)), retain=True)
 
-    def gen_request_message(self,timestamp):
+    def gen_request_message(self, timestamp):
         return {'status': 0, 'req_msg': '{"sbrick_id": "88:6B:0F:80:29:D1"}',
-           'resp_topic': self.my_topic, 'timestamp':timestamp}
-        
+                'resp_topic': self.my_topic, 'timestamp': timestamp}

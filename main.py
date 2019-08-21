@@ -1,6 +1,5 @@
 from config.configuration import componentDic, rootTopic
 from componentClass import Component
-import multiprocessing as mp
 import threading
 import signal
 import sys
@@ -8,6 +7,8 @@ import time
 import math
 
 # CTRl+C handler to exit the program properly
+
+
 def signal_handler(sig, frame):
     print('Bye Bye')
     sys.exit(0)
@@ -27,11 +28,11 @@ def get_components():
             my_components[key] = aux_component
             my_components[key].setup()
 
-            # The use of threads here is mainly in the case of components that should
-            # run in a parallel loop, such as the camera, and they can do so by
-            # implementing the run function. This shouldn't be the used for 
-            # components such as sensors, since their data aquisition is done
-            # in the main loop
+            # The use of threads here is mainly in the case of components that
+            # should run in a parallel loop, such as the camera, and they can
+            # do so by implementing the run function. This shouldn't be
+            # the used for components such as sensors, since their data
+            # acquisition is done in the main loop
             p = threading.Thread(
                 target=my_components[key].run)
             p.daemon = True
@@ -61,11 +62,11 @@ def get_max_min_sampling_interval(my_components):
 # Update the number of cycles between measurements for
 # each component based on the loop speed
 def update_loop_cycles(my_components, loop_speed, timestamp):
-    for key, component in my_components.iteritems():
+    for _, component in my_components.iteritems():
         component.calculate_loop_cycles(loop_speed, timestamp)
 
 
-# Main behaviour
+# Main behavior
 def main():
     # Get components and setup CTRL+C handling
     signal.signal(signal.SIGINT, signal_handler)
@@ -77,8 +78,8 @@ def main():
     # the number of cycles of the slowest component in order
     # to reset the counter
     max_rate, min_rate = get_max_min_sampling_interval(my_components)
-    max_loops = math.ceil((max_rate/min_rate))
-    update_loop_cycles(my_components, min_rate, time.time()*1000000)
+    max_loops = math.ceil((max_rate / min_rate))
+    update_loop_cycles(my_components, min_rate, time.time() * 1000000)
     print "Loop speed: {} || Maximum number of cycles {} ".format(
         min_rate, max_loops)
 
@@ -87,11 +88,11 @@ def main():
     # sleep the rate - time_spent_on_loop
     while True:
         begin = time.time()
-        timestamp = int(begin*1000000)  # microseconds
+        timestamp = int(begin * 1000000)  # microseconds
 
-        for key, component in my_components.iteritems():
-            if loopcount%component.loopCycles==0:
-                #component.handleData(timestamp)
+        for _, component in my_components.iteritems():
+            if loopcount % component.loopCycles == 0:
+                # component.handleData(timestamp)
                 p = threading.Thread(
                     target=component.handleData, args=(timestamp,))
                 p.daemon = True
@@ -101,8 +102,8 @@ def main():
         end = time.time()
         # Prevents errors in case the loop takes too long
         # Loop time is around 2ms with 2 components
-        if (end-begin) < min_rate:
-            time.sleep(min_rate-(end-begin))
+        if (end - begin) < min_rate:
+            time.sleep(min_rate - (end - begin))
         if loopcount > max_loops:
             loopcount = 1
 

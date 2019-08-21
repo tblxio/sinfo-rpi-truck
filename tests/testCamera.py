@@ -1,21 +1,21 @@
-import unittest
-import time
+from cameraClass import Camera
+import unittest2
 import sys
 sys.path.append('..')
-from cameraClass import Camera
 
 
-class TestCamera(unittest.TestCase):
+class TestCamera(unittest2.TestCase):
 
     def setUp(self):
-        self.camera= Camera("test")
+        self.camera = Camera("test")
         self.camera.setup()
 
     def testCameraInfoRequest(self):
         """
-        Test that it can publish the measurement to the Mqtt Broker
+        Test that it can publish the feed to the Mqtt Broker
+        and start streaming
         """
         self.camera.run()
-        
+
 if __name__ == '__main__':
-    unittest.main()
+    unittest2.main()

@@ -1,12 +1,12 @@
-import unittest
+import unittest2
 import time
 from imuClass import Imu
 
 
-class TestImu(unittest.TestCase):
+class TestImu(unittest2.TestCase):
 
     def setUp(self):
-        self.imu= Imu("test")
+        self.imu = Imu("test")
         self.imu.setup()
 
     def testImuGetData(self):
@@ -20,11 +20,6 @@ class TestImu(unittest.TestCase):
                 break
         time.sleep(0.1)
 
-    def testImuHandleData(self):
-        """
-        Test that it can publish the measurement to the Mqtt Broker
-        """
-        self.imu.handleData(time.time())
-        
+
 if __name__ == '__main__':
-    unittest.main()
+    unittest2.main()
