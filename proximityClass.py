@@ -25,7 +25,7 @@ class ProximitySensor(Component):
         GPIO.output(self.TRIG, False)
         GPIO.setwarnings(False)
         time.sleep(1)
-        self.filtered_distance = [0.0] * 10
+        self.filtered_distance = [0.0] * 3
         print "{} setup finished".format(self.name)
 
     # Data Handling for this specific device, from collection to publishing to
@@ -58,7 +58,7 @@ class ProximitySensor(Component):
                 begin = 1
                 break
         if begin == 1:
-            return round((sum(self.filtered_distance) / 10), 2)
+            return round((sum(self.filtered_distance) / 3), 2)
 
         else:
             while GPIO.input(self.ECHO) == 1:
@@ -74,4 +74,4 @@ class ProximitySensor(Component):
         del self.filtered_distance[0]
         self.filtered_distance.append(distance)
         # Round to 2 decimal points
-        return round((sum(self.filtered_distance) / 10), 2)
+        return round((sum(self.filtered_distance) / 3), 2)
