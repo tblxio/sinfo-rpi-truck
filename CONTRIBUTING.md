@@ -1,4 +1,4 @@
-## Contributing to this repository
+# Contributing to this repository
 
 Hi there!
 We’re thrilled that you’d like to contribute to this project.
