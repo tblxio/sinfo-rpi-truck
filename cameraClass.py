@@ -14,7 +14,7 @@ class Camera(Component):
         self.path = os.path.dirname(
             os.path.abspath(__file__)) + "/config/cameraRunner.py"
         print self.path
-        print "{} setup finished".format(self.name)
+        print("{} setup finished".format(self.name))
 
     # Basically publishes the camera feed IP to the MQTT broker
     # and calls the cameraRunner, which is based on a python3 script,

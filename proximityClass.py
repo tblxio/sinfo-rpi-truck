@@ -26,7 +26,7 @@ class ProximitySensor(Component):
         GPIO.setwarnings(False)
         time.sleep(1)
         self.filtered_distance = [0.0] * 3
-        print "{} setup finished".format(self.name)
+        print("{} setup finished".format(self.name))
 
     # Data Handling for this specific device, from collection to publishing to
     # the correct MQTT Topics.

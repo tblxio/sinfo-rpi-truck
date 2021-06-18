@@ -14,7 +14,7 @@ class Motor(Component):
         self.sampInterval = samplingInterval
         self.requestTopic = "sbrick/01/rr/get_adc"
         self.set_topic("motor")
-        print "{} setup finished".format(self.name)
+        print("{} setup finished".format(self.name))
 
     # Data Handling for this specific device, from collection to publishing to
     # the correct MQTT Topics.

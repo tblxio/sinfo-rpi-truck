@@ -10,21 +10,21 @@ This repo describes the set up of the raspberry pi that is later used along with
 - Keyboard + mouse + screen;
 - Jumper wires to connect sensor to RPi (some other options are available);
 
-The sources that were used to set up the RPi were mainly: 
+The sources that were used to set up the RPi were mainly:
 - https://kingtidesailing.blogspot.com/2016/02/how-to-setup-mpu-9250-on-raspberry-pi_25.html
 - https://github.com/richardstechnotes/RTIMULib2
 
-So it is expected that most of the instructions will be similar to the ones you can find there. 
+So it is expected that most of the instructions will be similar to the ones you can find there.
 
 ### Step 1: OS setup on RPi
 
-In order to setup your RPi follow the instructions [here](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/3). 
-In the end you should have your RPi up and running with its own OS. 
+In order to setup your RPi follow the instructions [here](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up/3).
+In the end you should have your RPi up and running with its own OS.
 
 
 ### Step 2: Connect the cables
 
-The sensor will have the GND, VCC, SDA and SCL pins connected to the RPi. Here you need to be careful to connect the VCC to the right pin in the RPi otherwise you can damage it. So, following the diagram 
+The sensor will have the GND, VCC, SDA and SCL pins connected to the RPi. Here you need to be careful to connect the VCC to the right pin in the RPi otherwise you can damage it. So, following the diagram
 
 ![RPi diagram](/j8header-2b-large.png)
 
@@ -43,7 +43,7 @@ Create and cd into the folder where the whole project will sit (and create a scr
 ```sh
 $ mkdir truck_project_db
 $ cd truck_project_db
-$ mkdir scripts 
+$ mkdir scripts
 ```
 
 Then install the I2C software
@@ -88,19 +88,19 @@ $ make -j4
 $ sudo make install
 ```
 
-Then we need to copy `RTEllipsoidFit` folder into a folder that is at the same level as our working directory (requirement stated in the `RTIMULib` repo) - in our case `scripts` folder: 
+Then we need to copy `RTEllipsoidFit` folder into a folder that is at the same level as our working directory (requirement stated in the `RTIMULib` repo) - in our case `scripts` folder:
 ```sh
 $ cp -r /home/pi/kts/RTIMULib2/RTEllipsoidFit/ /home/pi/kts/
 $ cd /home/pi/kts/RTEllipsoidFit/
 ```
-Follows some edits stated in the `RTIMULib`'s repo before we can proceed to calibrate our sensor. 
+Follows some edits stated in the `RTIMULib`'s repo before we can proceed to calibrate our sensor.
 
 - edit file `/etc/modules`
     ```sh
     $ sudo vi /etc/modules
     ```
     this file should contain the following lines uncommented / added:
-    
+
     	i2c-dev
     	i2c-bcm2708
 
@@ -109,7 +109,7 @@ Follows some edits stated in the `RTIMULib`'s repo before we can proceed to cali
     $ sudo vi /etc/udev/rules.d/90-i2c.rules
     ```
     add the following line to the file:
-    
+
         KERNEL==“i2c-[0-7]”,MODE=“0666” in /etc/udev/rules.d/90-i2c.rules
 
 
@@ -117,9 +117,9 @@ Follows some edits stated in the `RTIMULib`'s repo before we can proceed to cali
     ```sh
     $ sudo vi /boot/config.txt
     ```
-    
+
     and add at the bottom of the file the line
-    
+
         dtparam=i2c1_baudrate=400000
 
 After all the edits reboot your RPi:
@@ -127,13 +127,13 @@ After all the edits reboot your RPi:
 $ sudo reboot
 ```
 
-### Step 4: Calibrating MPU-9250 
+### Step 4: Calibrating MPU-9250
 
 From `/home/pi/truck_project_db/RTEllipsoidFit/` run
 ```sh
-$ RTIMULibCal 
+$ RTIMULibCal
 ```
-    
+
 and follow the instructions to calibrate the sensor. Then copy the file resulting from the calibration `RTIMULib.ini` to the working directory:
 ```sh
 $ cp RTIMULib.ini /home/pi/truck_project_db/scripts
@@ -147,7 +147,7 @@ MPU9250GyroLpf=2
 MPU9250AccelLpf=2
 ```
 
-	
+
 ### Step 5: Visualizing the sensor (optional)
 In order to evaluate if the calibration process went well we will use a visualization tool `RTIMULibDemoGL` that will read the sensor data and show the axis orientation in real-time. In order to setup the RTIMULibDemoGL app you need to install the following:
 ```sh
@@ -180,7 +180,7 @@ In this repo you will find the file imu.py that will stream the sensor data. Thi
 
 The consumer is set up [here](https://github.com/TechhubLisbon/sinfo-frontend).
 
-#### Mode: UDP 
+#### Mode: UDP
 
 `python imu.py udp` : UDP/SOCK_DGRAM is a datagram-based protocol, that involves NO connection. You send any number of datagrams and receive any number of datagrams. It's an "unreliable service" in the sense that the data that is read by the receiver can be out-of-order from the sender’s writes; In file `config.ini` setup under `CLIENTUDP` the host to where you want to send data (your laptop for instance) and a PORT that is not being used. Then you can run in your laptop:
 
@@ -204,7 +204,7 @@ That will act as a server listining on PORT.
 
     while True:
         data = s.recv(1024)
-        print (repr(data))
+        print(repr(data))
 
     s.close()
 
@@ -222,4 +222,4 @@ Review [the contributing guidelines](CONTRIBUTING.md) before you make your aweso
 
 ### License
 
-This project is licensed under the terms of the MIT license. See [LICENSE](LICENSE) 
+This project is licensed under the terms of the MIT license. See [LICENSE](LICENSE)

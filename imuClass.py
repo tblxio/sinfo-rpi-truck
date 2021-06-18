@@ -26,13 +26,13 @@ class Imu(Component):
 
         t_shutdown = 0
         if (not self.imu.IMUInit()):
-            print ("IMU Init Failed, try #:{} ".format(str(t_shutdown)))
+            print("IMU Init Failed, try #:{} ".format(str(t_shutdown)))
             t_shutdown += 1
             if t_shutdown > 9:
                 sys.exit(1)
 
         else:
-            print "IMU Init Succeeded"
+            print("IMU Init Succeeded")
 
         self.imu.setSlerpPower(0.02)
         self.imu.setGyroEnable(True)
@@ -48,7 +48,7 @@ class Imu(Component):
         # 2/100Hz= 20ms
         self.sampInterval = samplingInterval
         self.set_topic("imu")
-        print "{} setup finished".format(self.name)
+        print("{} setup finished".format(self.name))
 
     # Data Handling for this specific device, from collection to
     # publishing to the correct MQTT Topics.
@@ -58,16 +58,16 @@ class Imu(Component):
             (ret, _) = self.mqttHandler.publish(self.my_topic, json.dumps(
                 self.gen_payload_message(data, timestamp)), retain=True, qos=1)
             if(ret != 0):
-                print "error sending {}".format(ret)
+                print("error sending {}".format(ret))
                 self.counter = 0
 
             self.counter += 1
             elapsed = time.time() - self.timer
             self.timer = time.time()
-            print "{} : code {} time elapsed {}".format(
-                self.counter, ret, elapsed)
+            print("{} : code {} time elapsed {}".format(
+                self.counter, ret, elapsed))
         else:
-            print "ops"
+            print("ops")
             self.counter = 0
 
     # Generates the payload specific to the IMU

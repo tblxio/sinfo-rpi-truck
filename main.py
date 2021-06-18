@@ -1,4 +1,4 @@
-from config.configuration import componentDic, rootTopic,componentsSamplingIntevalInSeconds 
+from config.configuration import componentDic, rootTopic,componentsSamplingIntevalInSeconds
 from componentClass import Component
 import threading
 import signal
@@ -80,8 +80,7 @@ def main():
     max_rate, min_rate = get_max_min_sampling_interval(my_components)
     max_loops = math.ceil((max_rate / min_rate))
     update_loop_cycles(my_components, min_rate, time.time() * 1000000)
-    print "Loop speed: {} || Maximum number of cycles {} ".format(
-        min_rate, max_loops)
+    print(f"Loop speed: {min_rate} || Maximum number of cycles {max_loops}")
 
     loopcount = 1
     # Get timestamp, call handle data for each component

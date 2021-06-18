@@ -21,13 +21,13 @@ print("IMU Name: " + imu.IMUName())
 
 t_shutdown = 0
 if (not imu.IMUInit()):
-    print "IMU Init Failed, try #: ".format(str(t_shutdown))
+    print("IMU Init Failed, try #: ".format(str(t_shutdown)))
     t_shutdown += 1
     if t_shutdown > 9:
         sys.exit(1)
 
 else:
-    print "IMU Init Succeeded"
+    print("IMU Init Succeeded")
 
 imu.setSlerpPower(0.02)
 imu.setGyroEnable(True)
